@@ -1,9 +1,11 @@
 'use client'
+import https from "https"
 import Image from 'next/image'
 // import styles from './page.module.css'
 // import imageToggle from './Image.jsx'
 import ImageDisplay from "./ImageDisplay"
-import React, {useEffect} from 'react'
+// import FileSelect from "./FileSelect"
+import React from 'react'
 
 export default function Home() {
   // useEffect(() => {
@@ -18,6 +20,8 @@ export default function Home() {
   //   const forceUpdate = React.useCallback(() => updateState({}), []);
   // }
   return (
+    <>
         <ImageDisplay />
+    </>
   )
 }
