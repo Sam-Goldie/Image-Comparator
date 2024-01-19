@@ -5,7 +5,7 @@ import Image from 'next/image'
 import ImageDisplay from "./ImageDisplay"
 import React, {useEffect} from 'react'
 
-export default function Home() {
+export default function Page() {
   // useEffect(() => {
   //   document.addEventListener("keydown", (e) => {
   //     handleToggle(e)
