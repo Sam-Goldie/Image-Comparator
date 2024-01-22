@@ -6,6 +6,7 @@ const fs = require("fs")
 const { version } = require("os")
 let versionIndex = 0
 let imageIndex = 0
+const UTIF = require('./UTIF.js')
 // const imageNames = fs.readdir("./public")
 // setTimeout(() => {
 //     console.log("done")
@@ -42,6 +43,7 @@ const toggleUp = () => {
     }
     versionIndex = newIndex
     document.getElementById("display").src = path.join(imageDirectory, folderNames[imageIndex], fileNames[imageIndex][versionIndex])
+    UTIF.replaceIMG()
 }
 
 const toggleDown = () => {
@@ -51,6 +53,7 @@ const toggleDown = () => {
     }
     versionIndex = newIndex
     document.getElementById("display").src = path.join(imageDirectory, folderNames[imageIndex], fileNames[imageIndex][newIndex])
+    UTIF.replaceIMG()
 }
 
 const toggleLeft = () => {
@@ -60,6 +63,7 @@ const toggleLeft = () => {
     }
     imageIndex = newIndex
     document.getElementById("display").src = path.join(imageDirectory, folderNames[imageIndex], fileNames[imageIndex][versionIndex])
+    UTIF.replaceIMG()
 }
 
 const toggleRight = () => {
@@ -69,7 +73,7 @@ const toggleRight = () => {
     }
     imageIndex = newIndex
     document.getElementById("display").src = path.join(imageDirectory, folderNames[imageIndex], fileNames[imageIndex][versionIndex])
-
+    UTIF.replaceIMG()
 }
 
 document.addEventListener("keydown", (e) => {

@@ -1,4 +1,5 @@
-const {BrowserWindow, app} = require("electron")
+const {BrowserWindow, app, session} = require("electron")
+const UTIF = require("./UTIF.js")
 // const path = require("path")
 // const fs = require("fs")
 
@@ -28,13 +29,14 @@ function createWindow() {
     },
     width: "100px",
     height: "80px",
-    frame: true
+    frame: true,
   })
   window.loadFile("comparator.html")
 }
 
 app.whenReady().then(() =>
   createWindow()
+  // session.defaultSession.loadExtension(`%LOCALAPPDATA%\Google\Chrome\User Data\Default\Extensions`)
 )
 
 // import Image from 'next/image'
