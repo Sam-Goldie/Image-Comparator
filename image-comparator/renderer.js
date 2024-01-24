@@ -5,6 +5,7 @@ let imageIndex = 0
 const UTIF = require('./UTIF.js')
 
 const fileNames = []
+// set the following variable to point to the directory enclosing all of your images (represented as subdirectories)
 const imageDirectory = "./public"
 const folderNames = fs.readdirSync(imageDirectory)
 for (let i = 0; i < folderNames.length; i++) {
