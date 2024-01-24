@@ -1,16 +1,8 @@
-// const electron = require("electron")
-// const {app} = remote
-// 'public/GDCEE9JXAAA-AAT copy.jpg'
 const path = require("path")
 const fs = require("fs")
-const { version } = require("os")
 let versionIndex = 0
 let imageIndex = 0
 const UTIF = require('./UTIF.js')
-// const imageNames = fs.readdir("./public")
-// setTimeout(() => {
-//     console.log("done")
-// }, 20000)
 
 const fileNames = []
 const imageDirectory = "./public"
@@ -42,8 +34,17 @@ const toggleUp = () => {
         newIndex = 0
     }
     versionIndex = newIndex
-    document.getElementById("display").src = path.join(imageDirectory, folderNames[imageIndex], fileNames[imageIndex][versionIndex])
-    UTIF.replaceIMG()
+    for (let i = versionIndex - 3; i < versionIndex + 3; i++) {
+        let isCurrentImage = false
+        if (i === versionIndex) {
+            isCurrentImage = true
+        }
+        if (i < 0) {
+            UTIF.replaceIMG([path.join(imageDirectory, folderNames[imageIndex], fileNames[imageIndex][fileNames[imageIndex].length - 1 + i])], isCurrentImage)
+        } else {
+            UTIF.replaceIMG([path.join(imageDirectory, folderNames[imageIndex], fileNames[imageIndex][i])], isCurrentImage)
+        }    
+    }
 }
 
 const toggleDown = () => {
@@ -52,8 +53,17 @@ const toggleDown = () => {
         newIndex = fileNames[imageIndex].length - 1
     }
     versionIndex = newIndex
-    document.getElementById("display").src = path.join(imageDirectory, folderNames[imageIndex], fileNames[imageIndex][newIndex])
-    UTIF.replaceIMG()
+    for (let i = versionIndex - 3; i < versionIndex + 3; i++) {
+        let isCurrentImage = false
+        if (i === versionIndex) {
+            isCurrentImage = true
+        }
+        if (i < 0) {
+            UTIF.replaceIMG([path.join(imageDirectory, folderNames[imageIndex], fileNames[imageIndex][fileNames[imageIndex].length - 1 + i])], isCurrentImage)
+        } else {
+            UTIF.replaceIMG([path.join(imageDirectory, folderNames[imageIndex], fileNames[imageIndex][i])], isCurrentImage)
+        }    
+    }
 }
 
 const toggleLeft = () => {
@@ -62,8 +72,20 @@ const toggleLeft = () => {
         newIndex = fileNames.length - 1
     }
     imageIndex = newIndex
-    document.getElementById("display").src = path.join(imageDirectory, folderNames[imageIndex], fileNames[imageIndex][versionIndex])
-    UTIF.replaceIMG()
+    if (versionIndex >= fileNames[imageIndex].length) {
+        versionIndex = 0
+    }
+    for (let i = versionIndex - 3; i < versionIndex + 3; i++) {
+        let isCurrentImage = false
+        if (i === versionIndex) {
+            isCurrentImage = true
+        }
+        if (i < 0) {
+            UTIF.replaceIMG([path.join(imageDirectory, folderNames[imageIndex], fileNames[imageIndex][fileNames[imageIndex].length - 1 + i])], isCurrentImage)
+        } else {
+            UTIF.replaceIMG([path.join(imageDirectory, folderNames[imageIndex], fileNames[imageIndex][i])], isCurrentImage)
+        }    
+    }
 }
 
 const toggleRight = () => {
@@ -72,8 +94,20 @@ const toggleRight = () => {
         newIndex = 0
     }
     imageIndex = newIndex
-    document.getElementById("display").src = path.join(imageDirectory, folderNames[imageIndex], fileNames[imageIndex][versionIndex])
-    UTIF.replaceIMG()
+    if (versionIndex >= fileNames[imageIndex].length) {
+        versionIndex = 0
+    }
+    for (let i = versionIndex - 3; i < versionIndex + 3; i++) {
+        let isCurrentImage = false
+        if (i === versionIndex) {
+            isCurrentImage = true
+        }
+        if (i < 0) {
+            UTIF.replaceIMG([path.join(imageDirectory, folderNames[imageIndex], fileNames[imageIndex][fileNames[imageIndex].length - 1 + i])], isCurrentImage)
+        } else {
+            UTIF.replaceIMG([path.join(imageDirectory, folderNames[imageIndex], fileNames[imageIndex][i])], isCurrentImage)
+        }
+    }
 }
 
 document.addEventListener("keydown", (e) => {

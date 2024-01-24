@@ -1,5 +1,6 @@
 
-
+// This represents a modification of the UTIF tool, designed for conversion of tiffs and images of similar file types to browser readable formats
+// The repo is here: https://github.com/photopea/UTIF.js along with the original, unmodified UTIF.js
 
 
 ;(function(){
@@ -1539,18 +1540,47 @@
         return img;
     }
     
-    UTIF.replaceIMG = function(imgs)
+    const imageCache = {};
+    const newImages = [];
+    
+    UTIF.replaceIMG = function(imgs, isCurrentImage=false)
     {
-        if(imgs==null) imgs = document.getElementsByTagName("img");
         var sufs = ["tif","tiff","dng","cr2","nef"]
         for (var i=0; i<imgs.length; i++)
         {
-            var img=imgs[i], src=img.getAttribute("src");  if(src==null) continue;
+            var img=imgs[i] 
+            var src = img
+            if (img instanceof Element) {
+                src = img.getAttribute("src")
+            }
+            if(src==null) continue;
             var suff=src.split(".").pop().toLowerCase();
-            if(sufs.indexOf(suff)==-1) continue;
+            if(sufs.indexOf(suff)==-1) {
+                if (isCurrentImage) {
+                    document.getElementById("display").setAttribute("src", img)
+                    document.getElementById("display").style.maxHeight = window.innerHeight + "px"
+                }
+                continue
+            };
+            if (imageCache[src]) {
+                if (isCurrentImage) {
+                    document.getElementById("display").setAttribute("src", imageCache[src])
+                    document.getElementById("display").style.maxHeight = window.innerHeight + "px"
+                }
+                break
+            }
             var xhr = new XMLHttpRequest();  UTIF._xhrs.push(xhr);  UTIF._imgs.push(img);
             xhr.open("GET", src);  xhr.responseType = "arraybuffer";
-            xhr.onload = UTIF._imgLoaded;   xhr.send();
+            xhr.onload = UTIF._imgLoaded ;   xhr.send();
+            xhr.onloadend = function() {
+                while (newImages.length > 0) {
+                    imageCache[src] = newImages.pop()
+                    if (isCurrentImage) {
+                        document.getElementById("display").setAttribute("src", imageCache[src])
+                        document.getElementById("display").style.maxHeight = window.innerHeight + "px"
+                    }
+                }
+            }
         }
     }
     
@@ -1558,7 +1588,11 @@
     UTIF._imgLoaded = function(e) {
         var ind = UTIF._xhrs.indexOf(e.target), img = UTIF._imgs[ind];
         UTIF._xhrs.splice(ind,1);  UTIF._imgs.splice(ind,1);
-        img.setAttribute("src",UTIF.bufferToURI(e.target.response));
+        if (img instanceof Element) {
+            document.getElementById("display").setAttribute("src", UTIF.bufferToURI(e.target.response));
+            document.getElementById("display").style.maxHeight = window.innerHeight + "px"
+        }
+        newImages.push(UTIF.bufferToURI(e.target.response));
     }
     
     UTIF.bufferToURI = function(buff) {

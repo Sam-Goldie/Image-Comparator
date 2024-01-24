@@ -10,11 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@babel/preset-react": "^7.23.3",
     "electron-webpack": "^2.8.2",
-    "next": "14.0.4",
-    "react": "^18",
-    "react-dom": "^18"
+    "next": "14.0.4"
   },
   "devDependencies": {
     "electron": "^28.1.4"
