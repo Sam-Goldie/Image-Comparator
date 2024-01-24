@@ -1,0 +1,19 @@
+{
+  "name": "image-comparator",
+  "version": "0.1.0",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "electron .",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "electron-webpack": "^2.8.2",
+    "next": "14.0.4"
+  },
+  "devDependencies": {
+    "electron": "^28.1.4"
+  }
+}
